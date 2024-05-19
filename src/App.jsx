@@ -8,6 +8,7 @@ import Home from "./assets/components/Home";
 function App() {
   const [currentSection, setCurrentSection] = useState("home");
   const [loggedIn, setLoggedIn] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [token, setToken] = useState(null);
   function handleClick() {
     setLoggedIn(true);
