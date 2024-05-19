@@ -10,14 +10,14 @@ const navItems = [
 
 export default function Navbar(props) {
   return (
-    <nav className="flex flex-row justify-around w-full p-2 bg-black">
+    <nav className="flex flex-row justify-evenly w-full p-2 bg-black">
       {navItems.map((item, i) => (
         <NavItem
           handler={() => props.handler(item.text.toLowerCase())}
           key={i}
           href={item.href}
           text={item.text}
-          styling="px-4 py-2 rounded  border border-yellow-100 text-yellow-100 hover:bg-yellow-100 hover:text-black hover:bg-yellow-200"
+          styling="px-4 py-2 rounded  border-2 border-yellow-100 text-yellow-100 hover:bg-yellow-100 hover:text-black hover:bg-yellow-200"
         />
       ))}
     </nav>

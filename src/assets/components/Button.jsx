@@ -2,7 +2,7 @@
 
 export default function Button(props) {
   return (
-    <button onClick={props.handler} className={props.styling}>
+    <button onClick={props.handleClick} className={props.styling}>
       {props.text}
     </button>
   );

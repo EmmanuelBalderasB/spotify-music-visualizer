@@ -3,5 +3,13 @@ import Visual from "./Visual";
 import Login from "./Login";
 
 export default function Home(props) {
-  return <>{props.loggedIn ? <Visual></Visual> : <Login />}</>;
+  return (
+    <div className="flex flex-col justify-center items-centers">
+      {props.loggedIn ? (
+        <Visual loggedIn={props.loggedIn}></Visual>
+      ) : (
+        <Login handleClick={props.handleClick} />
+      )}
+    </div>
+  );
 }
