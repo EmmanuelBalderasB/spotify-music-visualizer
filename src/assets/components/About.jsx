@@ -1,8 +1,8 @@
 export default function About() {
   return (
-    <div className="p-4 bg-black">
-      <h1 className="text-yellow-100">About</h1>
-      <p className="text-yellow-100">
+    <div className="p-4 bg-black flex flex-col px-6">
+      <h1 className="text-yellow-100 text-5xl py-2">About</h1>
+      <p className="text-yellow-100 text-justify mt-2" id="about-section">
         This is a simple example of a React app that uses a Navbar component to
         navigate between different components. The Navbar component is
         conditionally rendered based on the state of the app. The app also uses
