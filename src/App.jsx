@@ -36,10 +36,10 @@ function App() {
   useEffect(() => {}, [token]);
 
   return (
-    <main className="bg-black w-screen h-600">
+    <main className="bg-black w-screen h-600 bg-animation-gif">
       <Navbar handler={setCurrentSection} />
       <div
-        className="flex flex-col h-screen items-center justify-center w-screen"
+        className={`flex flex-col h-screen items-center ${currentSection === "home" ? "justify-center" : "mt-10"} w-screen`}
         id="wrapper"
       >
         {renderSection()}

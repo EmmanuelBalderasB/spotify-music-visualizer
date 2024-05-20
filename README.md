@@ -1,0 +1,11 @@
+-[] Remove background when sketch is rendered
+-[] Make interactive sketch
+-[] Make Loading animation
+-[] Loading State
+-[] Spotify API integration
+-[] PKCE Flow Authentication
+-[] API data processing and manipulation
+-[] Intro paragraph
+-[] Title
+-[] Song Insights Component
+-[] Song Insights Component Animations
