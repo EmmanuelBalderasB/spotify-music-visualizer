@@ -17,7 +17,10 @@ export default function Navbar(props) {
           key={i}
           href={item.href}
           text={item.text}
-          styling="px-4 py-2 rounded  border-2 border-yellow-100 text-yellow-100 hover:bg-yellow-100 hover:text-black hover:bg-yellow-200"
+          styling="px-4 py-2
+          rounded animate-fade-in border-2 border-yellow-100
+          text-yellow-100 hover:bg-yellow-100 
+          hover:text-black hover:bg-yellow-100 duration-300"
         />
       ))}
     </nav>

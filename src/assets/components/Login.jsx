@@ -1,19 +1,51 @@
 /* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import Button from "./Button";
+
 export default function Login(props) {
+  const [hovered, setHovered] = useState(false);
+  useEffect(() => {
+    function handleMouseEnter() {
+      console.log("hover enter");
+      setHovered(true);
+    }
+
+    function handleMouseLeave() {
+      console.log("hover leave");
+      setHovered(false);
+    }
+
+    const loginButton = document.querySelector("#login-button");
+    loginButton.addEventListener("mouseenter", handleMouseEnter);
+    loginButton.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      loginButton.removeEventListener("mouseenter", handleMouseEnter);
+      loginButton.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
   return (
     <div
       className="
-      flex flex-col items-center
-      w-96 py-4 h-96
+      flex flex-col items-center justify-evenly
+      w-96 py-4 h-max
       bg-opacity-50 bg-black
-      border rounded-3xl border-yellow-100"
+      border-2 rounded-3xl border-yellow-100
+      animate-fade-in
+      "
     >
-      <h2 className="bg-yellow-100 text-black px-4 py-2 my-12">GET STARTED</h2>
+      <h2 className="text-yellow-100 text-3xl px-4 py-2">GET STARTED</h2>
       <Button
         handleClick={props.handleClick}
-        styling="p-4 bg-green-600 border-0"
-        text="Log In"
+        styling="p-4 my-4 
+        bg-green-600 
+        border-0 rounded-3xl 
+        text-yellow-100
+        hover:text-black hover:bg-yellow-100
+        flex flex-row justify-evenly duration-300"
+        text="Log In with Spotify"
+        id="login-button"
+        hovered={hovered}
       ></Button>
     </div>
   );
