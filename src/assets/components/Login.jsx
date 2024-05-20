@@ -6,12 +6,10 @@ export default function Login(props) {
   const [hovered, setHovered] = useState(false);
   useEffect(() => {
     function handleMouseEnter() {
-      console.log("hover enter");
       setHovered(true);
     }
 
     function handleMouseLeave() {
-      console.log("hover leave");
       setHovered(false);
     }
 
