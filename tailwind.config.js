@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "animation-gif": "url('./public/animation.gif')",
+        "animation-gif": "url('./public/David.gif')",
       },
       fontFamily: {
         sans: ["Satoshi", "sans-serif"],
