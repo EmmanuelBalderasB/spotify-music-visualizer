@@ -4,12 +4,11 @@ import About from "./assets/components/About";
 import Faq from "./assets/components/Faq";
 import Contact from "./assets/components/Contact";
 import Home from "./assets/components/Home";
-
+import codeChallenge from "./assets/components/codeChallenge";
 function App() {
   const [currentSection, setCurrentSection] = useState("home");
   const [loggedIn, setLoggedIn] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [token, setToken] = useState(null);
   function handleClick() {
     setLoggedIn(true);
   }
@@ -33,6 +32,9 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    codeChallenge();
+  }, [loggedIn]);
   return (
     <main
       className={`bg-black w-screen h-600 ${loggedIn ? null : "bg-animation-gif"}`}
