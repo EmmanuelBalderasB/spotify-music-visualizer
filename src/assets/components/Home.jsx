@@ -4,12 +4,14 @@ import Login from "./Login";
 
 export default function Home(props) {
   return (
-    <div className="flex flex-col justify-center items-centers">
-      {props.loggedIn ? (
-        <Visual loggedIn={props.loggedIn}></Visual>
-      ) : (
-        <Login handleClick={props.handleClick} />
-      )}
-    </div>
+    <>
+      <div className="flex flex-col justify-center items-center">
+        {props.loggedIn ? (
+          <Visual loggedIn={props.loggedIn}></Visual>
+        ) : (
+          <Login handleClick={props.handleClick} />
+        )}
+      </div>
+    </>
   );
 }
