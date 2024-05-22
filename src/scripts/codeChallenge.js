@@ -26,7 +26,10 @@ export default async function codeChallenge() {
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append("redirect_uri", "http://localhost:5173/callback");
+    params.append(
+      "redirect_uri",
+      "https://spotify-music-visualizer.vercel.app/callback"
+    );
     params.append("code_verifier", verifier);
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
