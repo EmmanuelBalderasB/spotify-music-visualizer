@@ -11,7 +11,7 @@ export default async function codeChallenge() {
     params.append("redirect_uri", "http://localhost:5173/callback");
     params.append(
       "scope",
-      "user-read-private user-read-email playlist-read-private playlist-read-collaborative"
+      "user-read-private user-read-email user-library-read playlist-read-private playlist-read-collaborative"
     );
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
@@ -77,11 +77,13 @@ export default async function codeChallenge() {
   }
 
   async function fetchProfile(code) {
-    const result = await fetch("https://api.spotify.com/v1/me", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${code}` },
-    });
-
+    const result = await fetch(
+      "https://api.spotify.com/v1/me/tracks?market=MX&limit=20&offset=0",
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${code}` },
+      }
+    );
     return await result.json();
   }
 }
