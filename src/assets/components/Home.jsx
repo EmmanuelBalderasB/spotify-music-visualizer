@@ -7,7 +7,11 @@ export default function Home(props) {
     <>
       <div className="flex flex-col justify-center items-center">
         {props.loggedIn ? (
-          <Visual loggedIn={props.loggedIn}></Visual>
+          <Visual
+            loggedIn={props.loggedIn}
+            loading={props.loading}
+            result={props.result}
+          />
         ) : (
           <Login handleClick={props.handleClick} />
         )}
