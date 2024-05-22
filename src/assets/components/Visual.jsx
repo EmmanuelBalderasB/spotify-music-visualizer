@@ -1,11 +1,20 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import Sketch from "./Sketch";
+//import Sketch from "./Sketch";
+import LoadingScreen from "./LoadingScreen";
 export default function Visual(props) {
   const { loggedIn } = props;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
-    setIsLoggedIn(loggedIn);
+    if (loggedIn) {
+      setIsLoggedIn(true);
+    }
   }, [loggedIn]);
-  return <>{isLoggedIn ? <Sketch /> : null}</>;
+  return (
+    <>
+      {loggedIn ? (
+        <LoadingScreen result={props.result} loggedIn={loggedIn} />
+      ) : null}
+    </>
+  );
 }
