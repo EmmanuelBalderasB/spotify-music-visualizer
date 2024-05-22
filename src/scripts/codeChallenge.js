@@ -1,5 +1,25 @@
-let results;
 export default async function codeChallenge() {
+  let results;
+  function generateCodeVerifier(length) {
+    let text = "";
+    let possible =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  }
+
+  async function generateCodeChallenge(codeVerifier) {
+    const data = new TextEncoder().encode(codeVerifier);
+    const digest = await window.crypto.subtle.digest("SHA-256", data);
+    return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
+  }
+
   async function redirectToAuthCodeFlow(clientId) {
     const verifier = generateCodeVerifier(128);
     const challenge = await generateCodeChallenge(verifier);
@@ -46,24 +66,15 @@ export default async function codeChallenge() {
     return access_token;
   }
 
-  function generateCodeVerifier(length) {
-    let text = "";
-    let possible =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (let i = 0; i < length; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-  }
-
-  async function generateCodeChallenge(codeVerifier) {
-    const data = new TextEncoder().encode(codeVerifier);
-    const digest = await window.crypto.subtle.digest("SHA-256", data);
-    return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
-      .replace(/\+/g, "-")
-      .replace(/\//g, "_")
-      .replace(/=+$/, "");
+  async function fetchTracks(code) {
+    const result = await fetch(
+      "https://api.spotify.com/v1/me/tracks?market=MX&limit=20&offset=0",
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${code}` },
+      }
+    );
+    return await result.json();
   }
   const clientId = "f3401270f9e646908f19c3fbb2d829c5";
   const params = new URLSearchParams(window.location.search);
@@ -75,16 +86,5 @@ export default async function codeChallenge() {
     const accessToken = await getAccessToken(clientId, code);
     results = await fetchTracks(accessToken);
     return results;
-  }
-
-  async function fetchTracks(code) {
-    const result = await fetch(
-      "https://api.spotify.com/v1/me/tracks?market=MX&limit=20&offset=0",
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${code}` },
-      }
-    );
-    return await result.json();
   }
 }

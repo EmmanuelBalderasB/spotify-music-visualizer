@@ -15,6 +15,7 @@ function App() {
   async function handleClick() {
     try {
       const _result = await codeChallenge();
+      console.log(_result);
       setResult(_result);
     } catch (error) {
       console.error(error);
