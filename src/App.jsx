@@ -12,10 +12,11 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [code, setCode] = useState(null);
+
   async function handleClick() {
     try {
       const _result = await codeChallenge();
-      console.log(_result);
+      //console.log(_result);
       setResult(_result);
     } catch (error) {
       console.error(error);
