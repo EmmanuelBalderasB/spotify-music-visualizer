@@ -1,3 +1,4 @@
+let results;
 export default async function codeChallenge() {
   async function redirectToAuthCodeFlow(clientId) {
     const verifier = generateCodeVerifier(128);
@@ -26,10 +27,7 @@ export default async function codeChallenge() {
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append(
-      "redirect_uri",
-      "https://spotify-music-visualizer.vercel.app/callback"
-    );
+    params.append("redirect_uri", "http://localhost:5173/callback");
     params.append("code_verifier", verifier);
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
@@ -75,11 +73,11 @@ export default async function codeChallenge() {
     redirectToAuthCodeFlow(clientId);
   } else {
     const accessToken = await getAccessToken(clientId, code);
-    const profile = await fetchProfile(accessToken);
-    console.log(profile);
+    results = await fetchTracks(accessToken);
+    return results;
   }
 
-  async function fetchProfile(code) {
+  async function fetchTracks(code) {
     const result = await fetch(
       "https://api.spotify.com/v1/me/tracks?market=MX&limit=20&offset=0",
       {
