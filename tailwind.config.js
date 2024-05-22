@@ -13,6 +13,8 @@ export default {
       animation: {
         "fade-in": "fade-in 1s ease-out",
         "invert-colors": "invert-colors 1s ease-out",
+        "fade-in-out": "fade-in-out 3s ease-in-out infinite",
+        swipe: "swipe 6s ease-in-out infinite",
       },
       keyframes: {
         "fade-in": {
@@ -22,6 +24,17 @@ export default {
         "invert-colors": {
           "0%": { backgroundColor: "bg-black", color: "text-yellow-100" },
           "100%": { backgroundColor: "bg-yellow-100", color: "text-black" },
+        },
+        "fade-in-out": {
+          "0%": { opacity: "0" },
+          "50%": { opacity: "100" },
+          "100%": { opacity: "0" },
+        },
+        swipe: {
+          "0%": { transform: "translateY(100%)", opacity: "0" },
+          "10%": { transform: "translateY(50%)", opacity: "100" },
+          "90%": { transform: "translateY(50%)", opacity: "100" },
+          "100%": { transform: "translateY(0%)", opacity: "0" },
         },
       },
     },
