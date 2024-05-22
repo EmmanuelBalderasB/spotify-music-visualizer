@@ -5,13 +5,15 @@
 - [x] Make it deploy (vercel)
 - [x] Scaffols basic UI with mock data
 - [] Make interactive sketch
-- [] Make Loading animation
-- [] Loading State
+- [x] Make Loading animation
+- [x] Loading State
 - [] Spotify API integration
 - [x] PKCE Flow Authentication
 - [] API data processing and manipulation
 - [] Utility animations
 - [] Intro paragraph
 - [] Title
-- [] Song Insights Component
-- [] Song Insights Component Animations
+- [x] Song Insights Component Container
+- [] Song Insights Component Text
+- [] Song Insights Component Image
+- [x] Song Insights Component Animations
