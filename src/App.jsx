@@ -9,8 +9,8 @@ function App() {
   const [currentSection, setCurrentSection] = useState("home");
   const [loggedIn, setLoggedIn] = useState(false);
   // eslint-disable-next-line no-unused-vars
+
   function handleClick() {
-    setLoggedIn(true);
     codeChallenge();
   }
   const renderSection = () => {
@@ -33,7 +33,14 @@ function App() {
     }
   };
 
-  useEffect(() => {}, [loggedIn]);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    //console.log({ _code: code });
+    if (code) {
+      setLoggedIn(true);
+    }
+  }, [loggedIn]);
   return (
     <main
       className={`bg-black w-screen h-600 ${loggedIn ? null : "bg-animation-gif"}`}
