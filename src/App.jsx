@@ -11,6 +11,7 @@ function App() {
   // eslint-disable-next-line no-unused-vars
   function handleClick() {
     setLoggedIn(true);
+    codeChallenge();
   }
   const renderSection = () => {
     switch (currentSection) {
@@ -32,9 +33,7 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    codeChallenge();
-  }, [loggedIn]);
+  useEffect(() => {}, [loggedIn]);
   return (
     <main
       className={`bg-black w-screen h-600 ${loggedIn ? null : "bg-animation-gif"}`}
