@@ -6,12 +6,10 @@ export default function Login(props) {
   const [hovered, setHovered] = useState(false);
   useEffect(() => {
     function handleMouseEnter() {
-      console.log("hover enter");
       setHovered(true);
     }
 
     function handleMouseLeave() {
-      console.log("hover leave");
       setHovered(false);
     }
 
@@ -29,7 +27,7 @@ export default function Login(props) {
       className="
       flex flex-col items-center justify-evenly
       w-96 py-4 h-max
-      bg-opacity-50 bg-black
+      bg-opacity-80 bg-black
       border-2 rounded-3xl border-yellow-100
       animate-fade-in
       "

@@ -4,14 +4,14 @@ import About from "./assets/components/About";
 import Faq from "./assets/components/Faq";
 import Contact from "./assets/components/Contact";
 import Home from "./assets/components/Home";
-
+import codeChallenge from "./assets/components/codeChallenge";
 function App() {
   const [currentSection, setCurrentSection] = useState("home");
   const [loggedIn, setLoggedIn] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [token, setToken] = useState(null);
+
   function handleClick() {
-    setLoggedIn(true);
+    codeChallenge();
   }
   const renderSection = () => {
     switch (currentSection) {
@@ -33,13 +33,26 @@ function App() {
     }
   };
 
-  useEffect(() => {}, [token]);
-
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    //console.log({ _code: code });
+    if (code) {
+      setLoggedIn(true);
+    }
+  }, [loggedIn]);
   return (
-    <main className="bg-black w-screen h-600">
+    <main
+      className={`bg-black w-screen h-600 ${loggedIn ? null : "bg-animation-gif"}`}
+    >
       <Navbar handler={setCurrentSection} />
+      {currentSection === "home" ? (
+        <h1 className="text-yellow-100 text-5xl capitalize animate-fade-in text-center mt-24 absolute w-screen">
+          What does your music look like?
+        </h1>
+      ) : null}
       <div
-        className="flex flex-col h-screen items-center justify-center w-screen"
+        className={`flex flex-col h-screen items-center ${currentSection === "home" ? "justify-center" : "mt-10"} w-screen`}
         id="wrapper"
       >
         {renderSection()}
