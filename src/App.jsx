@@ -4,24 +4,43 @@ import About from "./assets/components/About";
 import Faq from "./assets/components/Faq";
 import Contact from "./assets/components/Contact";
 import Home from "./assets/components/Home";
-import codeChallenge from "./scripts/codeChallenge";
+import {
+  redirectToAuthCodeFlow,
+  getAccessToken,
+  fetchTracks,
+} from "./scripts/codeChallenge";
+
 function App() {
   const [currentSection, setCurrentSection] = useState("home");
   const [loggedIn, setLoggedIn] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [code, setCode] = useState(null);
 
-  async function handleClick() {
-    try {
-      const _result = await codeChallenge();
-      //console.log(_result);
-      setResult(_result);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const clientId = "f3401270f9e646908f19c3fbb2d829c5";
+
+  useEffect(() => {
+    const handlePageLoad = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+
+      if (code) {
+        try {
+          const accessToken = await getAccessToken(clientId, code);
+          const tracks = await fetchTracks(accessToken);
+          setResult(tracks);
+          setLoggedIn(true);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    handlePageLoad();
+  }, [clientId]);
+
+  const handleClick = () => {
+    redirectToAuthCodeFlow(clientId);
+  };
+
   const renderSection = () => {
     switch (currentSection) {
       case "about":
@@ -37,22 +56,12 @@ function App() {
             loggedIn={loggedIn}
             handler={setCurrentSection}
             handleClick={handleClick}
-            loading={loading}
             result={result}
           />
         );
     }
   };
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-    console.log("running");
-    //console.log({ _code: code });
-    if (code) {
-      setLoggedIn(true);
-    }
-  }, [result]);
   return (
     <main
       className={`bg-black w-screen h-600 ${loggedIn ? null : "bg-animation-gif"}`}
