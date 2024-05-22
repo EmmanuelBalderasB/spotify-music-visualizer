@@ -9,9 +9,16 @@ function App() {
   const [currentSection, setCurrentSection] = useState("home");
   const [loggedIn, setLoggedIn] = useState(false);
   // eslint-disable-next-line no-unused-vars
-
-  function handleClick() {
-    codeChallenge();
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [code, setCode] = useState(null);
+  async function handleClick() {
+    try {
+      const _result = await codeChallenge();
+      setResult(_result);
+    } catch (error) {
+      console.error(error);
+    }
   }
   const renderSection = () => {
     switch (currentSection) {
@@ -28,6 +35,8 @@ function App() {
             loggedIn={loggedIn}
             handler={setCurrentSection}
             handleClick={handleClick}
+            loading={loading}
+            result={result}
           />
         );
     }
@@ -36,11 +45,12 @@ function App() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
+    console.log("running");
     //console.log({ _code: code });
     if (code) {
       setLoggedIn(true);
     }
-  }, [loggedIn]);
+  }, [result]);
   return (
     <main
       className={`bg-black w-screen h-600 ${loggedIn ? null : "bg-animation-gif"}`}
