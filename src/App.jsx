@@ -17,18 +17,16 @@ function App() {
     const params = new URLSearchParams(window.location.search);
     const codeInSearchParams = params.get("code");
     if (codeInSearchParams) {
-      setCode(code);
+      setCode(codeInSearchParams);
     }
   }, []);
   useEffect(() => {
-    if (code) {
-      const accessToken = codeChallenge();
-      accessToken.then((result) => {
-        setRedirected(true);
-        setResult(result);
-        setLoggedIn(true);
-      });
-    }
+    const accessToken = codeChallenge();
+    accessToken.then((result) => {
+      setRedirected(true);
+      setResult(result);
+      setLoggedIn(true);
+    });
   }, [code]);
 
   const handleClick = () => {
