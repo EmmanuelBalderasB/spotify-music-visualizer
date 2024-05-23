@@ -1,9 +1,9 @@
 export default function TrackInfo(props) {
   return (
-    <div className="flex flex-col justify-start items-center">
-      <h2></h2>
-      <h3></h3>
-      <h4></h4>
+    <div className="flex flex-col justify-start items-center text-yellow-100 animate-swipe">
+      <h2>Title</h2>
+      <h3>Artist</h3>
+      <h4>Album</h4>
     </div>
   );
 }

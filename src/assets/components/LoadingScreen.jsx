@@ -1,6 +1,7 @@
 //import { useState, useEffect } from "react";
 import Track from "./Track";
 import { useEffect, useState } from "react";
+import TrackInfo from "./TrackInfo";
 export default function LoadingScreen(props) {
   const [animationCycle, setAnimationCycle] = useState(true);
   //const [tracks, setTracks] = useState([]);
@@ -34,6 +35,7 @@ export default function LoadingScreen(props) {
         }
         styling="h-40 w-40 rounded-3xl border-2 border-yellow-200 absolute bottom-12 left-1/4 animate-swipe"
       />
+      <TrackInfo result={props.result} />
     </>
   );
 }
