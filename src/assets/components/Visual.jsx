@@ -5,7 +5,6 @@ import LoadingScreen from "./LoadingScreen";
 export default function Visual(props) {
   const { loggedIn } = props;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (loggedIn) {
       setIsLoggedIn(true);
