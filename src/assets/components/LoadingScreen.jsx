@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 export default function LoadingScreen(props) {
   const [animationCycle, setAnimationCycle] = useState(true);
   //const [tracks, setTracks] = useState([]);
+  const [currentTrack, setCurrentTrack] = useState(null);
   const [count, setCount] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
@@ -13,6 +14,7 @@ export default function LoadingScreen(props) {
       } else {
         setCount(0);
       }
+      setCurrentTrack(props.result.items[count].track);
     }, 6000);
     return () => clearInterval(interval);
   }, [animationCycle]);
@@ -25,11 +27,7 @@ export default function LoadingScreen(props) {
         </h2>
       </div>
       <Track
-        image={
-          props.result
-            ? props.result.items[count].track.album.images[0].url
-            : null
-        }
+        image={props.result ? currentTrack.album.images[0].url : null}
         styling="h-40 w-40 rounded-3xl border-2 border-yellow-200 absolute bottom-12 left-1/4 animate-swipe"
       />
     </>
