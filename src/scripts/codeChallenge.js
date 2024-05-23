@@ -1,4 +1,4 @@
-export default async function codeChallenge() {
+export default async function codeChallenge(codeArg) {
   let results;
   async function redirectToAuthCodeFlow(clientId) {
     const verifier = generateCodeVerifier(128);
@@ -72,7 +72,7 @@ export default async function codeChallenge() {
   if (!code) {
     redirectToAuthCodeFlow(clientId);
   } else {
-    const accessToken = await getAccessToken(clientId, code);
+    const accessToken = await getAccessToken(clientId, codeArg);
     results = await fetchTracks(accessToken);
     return results;
   }

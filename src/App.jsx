@@ -18,19 +18,29 @@ function App() {
     const codeInSearchParams = params.get("code");
     if (codeInSearchParams) {
       setCode(codeInSearchParams);
+      codeChallenge(codeInSearchParams)
+        .then((result) => {
+          setRedirected(true);
+          setResult(result);
+          setLoggedIn(true);
+        })
+        .catch((error) => {
+          console.error("Failed to get access token:", error);
+        });
     }
-  }, []);
-  useEffect(() => {
-    const accessToken = codeChallenge();
-    accessToken.then((result) => {
-      setRedirected(true);
-      setResult(result);
-      setLoggedIn(true);
-    });
-  }, [code]);
+  }, [redirected]);
 
-  const handleClick = () => {
-    codeChallenge();
+  const handleClick = async () => {
+    if (!code) {
+      try {
+        const result = await codeChallenge(); // initiate OAuth flow
+        setRedirected(true);
+        setResult(result);
+        setLoggedIn(true);
+      } catch (error) {
+        console.error("Failed to initiate OAuth flow:", error);
+      }
+    }
   };
 
   const renderSection = () => {
