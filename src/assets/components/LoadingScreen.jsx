@@ -1,16 +1,21 @@
 //import { useState, useEffect } from "react";
 import Track from "./Track";
-
+import { useEffect, useState } from "react";
 export default function LoadingScreen(props) {
-  //const [animationCycle, setAnimationCycle] = useState(true);
+  const [animationCycle, setAnimationCycle] = useState(true);
   //const [tracks, setTracks] = useState([]);
-
-  /*useEffect(() => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
     const interval = setInterval(() => {
       setAnimationCycle(!animationCycle);
+      if (count < 10) {
+        setCount(count + 1);
+      } else {
+        setCount(0);
+      }
     }, 6000);
     return () => clearInterval(interval);
-  }, [animationCycle]); */
+  }, [animationCycle]);
   return (
     <>
       <div className="flex flex-row justify-center items-center">
@@ -21,7 +26,9 @@ export default function LoadingScreen(props) {
       </div>
       <Track
         image={
-          props.result ? props.result.items[1].track.album.images[0].url : null
+          props.result
+            ? props.result.items[count].track.album.images[0].url
+            : null
         }
         styling="h-40 w-40 rounded-3xl border-2 border-yellow-200 absolute bottom-12 left-1/4 animate-swipe"
       />
