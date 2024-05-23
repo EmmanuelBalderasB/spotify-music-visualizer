@@ -1,25 +1,9 @@
-export async function generateCodeChallenge(codeVerifier) {
-  const data = new TextEncoder().encode(codeVerifier);
-  const digest = await window.crypto.subtle.digest("SHA-256", data);
-  return btoa(String.fromCharCode(...new Uint8Array(digest)))
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
-}
+export default async function codeChallenge() {
+  let results;
+  async function redirectToAuthCodeFlow(clientId) {
+    const verifier = generateCodeVerifier(128);
+    const challenge = await generateCodeChallenge(verifier);
 
-export function redirectToAuthCodeFlow(clientId) {
-  const generateCodeVerifier = (length) => {
-    let text = "";
-    const possible =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (let i = 0; i < length; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-  };
-
-  const verifier = generateCodeVerifier(128);
-  generateCodeChallenge(verifier).then((challenge) => {
     localStorage.setItem("verifier", verifier);
 
     const params = new URLSearchParams();
@@ -34,48 +18,73 @@ export function redirectToAuthCodeFlow(clientId) {
     params.append("code_challenge", challenge);
 
     document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
-  });
-}
-
-export async function getAccessToken(clientId, code) {
-  const verifier = localStorage.getItem("verifier");
-  const params = new URLSearchParams();
-  params.append("client_id", clientId);
-  params.append("grant_type", "authorization_code");
-  params.append("code", code);
-  params.append("redirect_uri", "http://localhost:5173/callback");
-  params.append("code_verifier", verifier);
-
-  const result = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: params,
-  });
-
-  if (!result.ok) {
-    throw new Error(
-      `Failed to get access token: ${result.status} ${result.statusText}`
-    );
   }
 
-  const { access_token } = await result.json();
-  return access_token;
-}
+  async function getAccessToken(clientId, code) {
+    const verifier = localStorage.getItem("verifier");
 
-export async function fetchTracks(accessToken) {
-  const result = await fetch(
-    "https://api.spotify.com/v1/me/tracks?market=MX&limit=20&offset=0",
-    {
-      method: "GET",
-      headers: { Authorization: `Bearer ${accessToken}` },
+    const params = new URLSearchParams();
+    params.append("client_id", clientId);
+    params.append("grant_type", "authorization_code");
+    params.append("code", code);
+    params.append("redirect_uri", "http://localhost:5173/callback");
+    params.append("code_verifier", verifier);
+
+    const result = await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params,
+    });
+
+    if (!result.ok) {
+      throw new Error(
+        `Failed to get access token: ${result.status} ${result.statusText}`
+      );
     }
-  );
 
-  if (!result.ok) {
-    throw new Error(
-      `Failed to fetch tracks: ${result.status} ${result.statusText}`
-    );
+    const { access_token } = await result.json();
+    return access_token;
   }
 
-  return await result.json();
+  function generateCodeVerifier(length) {
+    let text = "";
+    let possible =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+  }
+
+  async function generateCodeChallenge(codeVerifier) {
+    const data = new TextEncoder().encode(codeVerifier);
+    const digest = await window.crypto.subtle.digest("SHA-256", data);
+    return btoa(String.fromCharCode.apply(null, [...new Uint8Array(digest)]))
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
+  }
+  const clientId = "f3401270f9e646908f19c3fbb2d829c5";
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get("code");
+
+  if (!code) {
+    redirectToAuthCodeFlow(clientId);
+  } else {
+    const accessToken = await getAccessToken(clientId, code);
+    results = await fetchTracks(accessToken);
+    return results;
+  }
+
+  async function fetchTracks(code) {
+    const result = await fetch(
+      "https://api.spotify.com/v1/me/tracks?market=MX&limit=20&offset=0",
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${code}` },
+      }
+    );
+    return await result.json();
+  }
 }
