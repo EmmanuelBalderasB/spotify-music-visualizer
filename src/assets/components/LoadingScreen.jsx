@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 import Track from "./Track";
-import codeChallenge from "../../scripts/codeChallenge";
 
 export default function LoadingScreen(props) {
   //const [animationCycle, setAnimationCycle] = useState(true);
-  const [tracks, setTracks] = useState([]);
+  //const [tracks, setTracks] = useState([]);
 
   /*useEffect(() => {
     const interval = setInterval(() => {

@@ -4,41 +4,35 @@ import About from "./assets/components/About";
 import Faq from "./assets/components/Faq";
 import Contact from "./assets/components/Contact";
 import Home from "./assets/components/Home";
-import {
-  redirectToAuthCodeFlow,
-  getAccessToken,
-  fetchTracks,
-} from "./scripts/codeChallenge";
+import codeChallenge from "./scripts/codeChallenge";
 
 function App() {
   const [currentSection, setCurrentSection] = useState("home");
   const [loggedIn, setLoggedIn] = useState(false);
   const [result, setResult] = useState(null);
-
-  const clientId = "f3401270f9e646908f19c3fbb2d829c5";
+  const [redirected, setRedirected] = useState(false);
+  const [code, setCode] = useState(null);
 
   useEffect(() => {
-    const handlePageLoad = async () => {
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get("code");
-
-      if (code) {
-        try {
-          const accessToken = await getAccessToken(clientId, code);
-          const tracks = await fetchTracks(accessToken);
-          setResult(tracks);
-          setLoggedIn(true);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-
-    handlePageLoad();
-  }, [clientId]);
+    const params = new URLSearchParams(window.location.search);
+    const codeInSearchParams = params.get("code");
+    if (codeInSearchParams) {
+      setCode(code);
+    }
+  }, []);
+  useEffect(() => {
+    if (code) {
+      const accessToken = codeChallenge();
+      accessToken.then((result) => {
+        setRedirected(true);
+        setResult(result);
+        setLoggedIn(true);
+      });
+    }
+  }, [code]);
 
   const handleClick = () => {
-    redirectToAuthCodeFlow(clientId);
+    codeChallenge();
   };
 
   const renderSection = () => {
@@ -57,6 +51,7 @@ function App() {
             handler={setCurrentSection}
             handleClick={handleClick}
             result={result}
+            redirected={redirected}
           />
         );
     }
