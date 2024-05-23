@@ -1,9 +1,12 @@
 export default function TrackInfo(props) {
+  const title = props.result.items[props.index].track.name;
+  const artist = props.result.items[props.index].track.album.artists[0].name;
+  const album = props.result.items[props.index].track.album.name;
   return (
-    <div className="flex flex-col justify-start items-center text-yellow-100 animate-swipe">
-      <h2>Title</h2>
-      <h3>Artist</h3>
-      <h4>Album</h4>
+    <div className="flex flex-col justify-center  text-yellow-100 animate-swipe">
+      <h3 className="text-2xl">{artist}</h3>
+      <h2 className="text-xl">{title}</h2>
+      <h4 className="text-md">{album}</h4>
     </div>
   );
 }

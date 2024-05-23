@@ -15,6 +15,7 @@ export default function LoadingScreen(props) {
       } else {
         setCount(0);
       }
+
       //setCurrentTrack(props.result.items[count].track);
     }, 6000);
     return () => clearInterval(interval);
@@ -35,7 +36,7 @@ export default function LoadingScreen(props) {
         }
         styling="h-40 w-40 rounded-3xl border-2 border-yellow-200 absolute bottom-12 left-1/4 animate-swipe"
       />
-      <TrackInfo result={props.result} />
+      <TrackInfo index={count} result={props.result} />
     </>
   );
 }
