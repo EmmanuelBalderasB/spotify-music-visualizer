@@ -26,7 +26,7 @@ export default function Track(props) {
       <img
         ref={elementRef}
         src={props.image}
-        alt="album cover"
+        alt={props.alt}
         className={`animate-swipe ${props.styling}`} // Add the animation class here
       />
     </div>
