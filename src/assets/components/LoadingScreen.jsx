@@ -1,6 +1,6 @@
 //import { useState, useEffect } from "react";
-import Track from "./Track";
 import { useEffect, useState } from "react";
+import Track from "./Track";
 import TrackInfo from "./TrackInfo";
 export default function LoadingScreen(props) {
   const [animationCycle, setAnimationCycle] = useState(true);
@@ -10,12 +10,15 @@ export default function LoadingScreen(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       setAnimationCycle(!animationCycle);
-      if (count < 10) {
+      if (count < 19) {
         setCount(count + 1);
       } else {
         setCount(0);
       }
-
+      /*   console.log({
+        song: props.result.items[count].track.name,
+        url: props.result.items[count].track.album.images[0].url,
+      }); */
       //setCurrentTrack(props.result.items[count].track);
     }, 6000);
     return () => clearInterval(interval);
@@ -29,6 +32,7 @@ export default function LoadingScreen(props) {
         </h2>
       </div>
       <Track
+        alt={props.result ? props.result.items[count].track.name : null}
         image={
           props.result
             ? props.result.items[count].track.album.images[0].url
