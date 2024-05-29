@@ -13,6 +13,9 @@
 - [] Utility animations
 - [] Intro paragraph
 - [] Title
+- [] About section paragraph
+- [] FAQ Section
+- [] Contact Section
 - [x] Song Insights Component Container
 - [x] Song Insights Component Text
 - [x] Song Insights Component Image
