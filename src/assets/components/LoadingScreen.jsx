@@ -7,6 +7,7 @@ export default function LoadingScreen(props) {
   //const [tracks, setTracks] = useState([]);
   //const [currentTrack, setCurrentTrack] = useState(0);
   const [count, setCount] = useState(0);
+  const { setCycleCompleted } = props;
   useEffect(() => {
     const interval = setInterval(() => {
       setAnimationCycle(!animationCycle);
@@ -14,6 +15,7 @@ export default function LoadingScreen(props) {
         setCount(count + 1);
       } else {
         setCount(0);
+        setCycleCompleted(true);
       }
       /*   console.log({
         song: props.result.items[count].track.name,
