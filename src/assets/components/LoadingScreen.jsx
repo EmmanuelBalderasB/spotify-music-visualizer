@@ -8,11 +8,20 @@ export default function LoadingScreen(props) {
   //const [currentTrack, setCurrentTrack] = useState(0);
   const [count, setCount] = useState(0);
   const { setCycleCompleted } = props;
+  const { setImages } = props;
   useEffect(() => {
     const interval = setInterval(() => {
       setAnimationCycle(!animationCycle);
-      if (count < 19) {
+      if (count < 3) {
+        //count < props.result.items.length - 1
         setCount(count + 1);
+        setImages((prev) => [
+          ...prev,
+          {
+            song: props.result.items[count].track.name,
+            url: props.result.items[count].track.album.images[0].url,
+          },
+        ]);
       } else {
         setCount(0);
         setCycleCompleted(true);
@@ -22,7 +31,7 @@ export default function LoadingScreen(props) {
         url: props.result.items[count].track.album.images[0].url,
       }); */
       //setCurrentTrack(props.result.items[count].track);
-    }, 6000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [animationCycle]);
   return (
