@@ -14,7 +14,7 @@ export default {
         "fade-in": "fade-in 1s ease-out",
         "invert-colors": "invert-colors 1s ease-out",
         "fade-in-out": "fade-in-out 3s ease-in-out infinite",
-        swipe: "swipe 6s ease-in-out infinite",
+        swipe: "swipe 3s ease-in-out infinite",
       },
       keyframes: {
         "fade-in": {
