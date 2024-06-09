@@ -2,40 +2,37 @@ import { ReactP5Wrapper } from "@p5-wrapper/react";
 import { useEffect, useState } from "react";
 
 function sketch(p5) {
-  let rotation = 0;
-
-  p5.setup = () => p5.createCanvas(600, 400, p5.WEBGL);
+  // let imageArr = [];
+  let imgPaths;
+  p5.setup = () => {
+    p5.createCanvas(600, 400, p5.WEBGL);
+    /* const font = p5.loadFont("../fonts/Satoshi-Regular.otf");
+    p5.textFont(font); */
+  };
 
   p5.updateWithProps = (props) => {
-    if (props.rotation) {
-      rotation = (props.rotation * Math.PI) / 180;
+    console.log(props.imageArray);
+    if (props.imageArray) {
+      imgPaths = props.imageArray;
+      console.log(imgPaths);
     }
   };
 
   p5.draw = () => {
     p5.background(100);
-    p5.normalMaterial();
-    p5.noStroke();
-    p5.push();
-    p5.rotateY(rotation);
-    p5.box(100);
-    p5.pop();
+    p5.stroke(255);
+    p5.ellipse(0, 0, 20, 20);
   };
 }
 
-export default function Sketch() {
-  const [rotation, setRotation] = useState(0);
+export default function Sketch(props) {
+  const { images } = props;
+  const [imageArray, setImageArray] = useState([]);
 
   useEffect(() => {
-    const interval = setInterval(
-      () => setRotation((rotation) => rotation + 1),
-      100
-    );
+    setImageArray((prev) => [images, ...prev]);
+    //console.log({ img: images });
+  }, [props.images]);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  return <ReactP5Wrapper sketch={sketch} rotation={rotation} />;
+  return <ReactP5Wrapper sketch={sketch} imageArray={imageArray} />;
 }
