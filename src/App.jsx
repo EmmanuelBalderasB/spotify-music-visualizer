@@ -71,7 +71,7 @@ function App() {
     >
       <Navbar handler={setCurrentSection} />
       {currentSection === "home" ? (
-        <h1 className="text-yellow-100 text-5xl capitalize animate-fade-in text-center mt-24 absolute w-screen">
+        <h1 className=" text-yellow-100 text-5xl capitalize animate-fade-in text-center mt-24 absolute w-screen">
           What does your music look like?
         </h1>
       ) : null}
