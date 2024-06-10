@@ -12,7 +12,7 @@ export default function LoadingScreen(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       setAnimationCycle(!animationCycle);
-      if (count < 3) {
+      if (count < 19) {
         //count < props.result.items.length - 1
         setCount(count + 1);
         setImages((prev) => [
@@ -31,7 +31,7 @@ export default function LoadingScreen(props) {
         url: props.result.items[count].track.album.images[0].url,
       }); */
       //setCurrentTrack(props.result.items[count].track);
-    }, 3000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [animationCycle]);
   return (

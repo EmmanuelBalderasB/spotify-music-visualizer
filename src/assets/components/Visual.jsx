@@ -17,7 +17,7 @@ export default function Visual(props) {
   if (cycleCompleted) {
     return (
       <>
-        <Sketch images={images} />
+        <Sketch className="cursor-pointer" images={images} />
       </>
     );
   } else {
