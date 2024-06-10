@@ -5,7 +5,7 @@ export default {
     extend: {
       backgroundImage: {
         "animation-gif":
-          "url('https://utfs.io/f/696bdad1-20aa-4341-9d72-38d33389b226-136g5w.gif')",
+          "url('https://utfs.io/f/686da3e2-cb87-452f-ac83-64b59003233f-opdnxw.gif')",
       },
       fontFamily: {
         sans: ["Satoshi", "sans-serif"],
@@ -14,7 +14,7 @@ export default {
         "fade-in": "fade-in 1s ease-out",
         "invert-colors": "invert-colors 1s ease-out",
         "fade-in-out": "fade-in-out 3s ease-in-out infinite",
-        swipe: "swipe 1s ease-in-out infinite",
+        swipe: "swipe 2s ease-in-out infinite",
       },
       keyframes: {
         "fade-in": {
