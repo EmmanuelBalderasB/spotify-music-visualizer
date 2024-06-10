@@ -9,7 +9,7 @@ export default function Visual(props) {
   // eslint-disable-next-line no-unused-vars
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [cycleCompleted, setCycleCompleted] = useState(false);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1);
   function nextImage() {
     if (index < images.length - 1) {
       setIndex(index + 1);
