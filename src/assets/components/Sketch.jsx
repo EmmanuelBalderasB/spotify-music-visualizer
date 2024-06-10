@@ -8,9 +8,8 @@ function sketch(p5) {
   let weight = 1;
   p5.setup = () => {
     let cnv = p5.createCanvas(640, 640, p5.WEBGL);
-
     p5.background(0);
-    p5.frameRate(160);
+    p5.frameRate(30);
 
     cnv.mousePressed(() => {
       if (looping) {
@@ -45,7 +44,8 @@ function sketch(p5) {
       //p5.image(canvasImg, 0, 0);
       flowField(p5, canvasImg, weight);
     } else {
-      collage(p5, images, imgPaths);
+      let index = Math.floor(p5.random(images.length));
+      p5.image(images[index], -320, -320);
     }
   };
 }
@@ -111,3 +111,89 @@ export default function Sketch(props) {
   return <ReactP5Wrapper sketch={sketch} imageArray={images} weight={1.4} />;
 }
  */
+
+import { ReactP5Wrapper } from "@p5-wrapper/react";
+
+function sketch(p5) {
+  let imgPaths = [];
+  let images = [];
+  let looping = true;
+  let weight = 1.4;
+
+  p5.setup = () => {
+    let cnv = p5.createCanvas(640, 640, p5.WEBGL);
+    p5.background(0);
+    p5.frameRate(30);
+
+    cnv.mousePressed(() => {
+      if (looping) {
+        looping = false;
+        //p5.noLoop();
+      } else {
+        looping = true;
+        //p5.loop();
+      }
+    });
+  };
+
+  p5.updateWithProps = (props) => {
+    if (props.imageArray) {
+      imgPaths = props.imageArray;
+    }
+    if (images.length === 0) {
+      for (let i = 0; i < imgPaths.length; i++) {
+        images.push(p5.loadImage(imgPaths[i].url));
+      }
+    }
+    weight = props.weight;
+  };
+
+  p5.draw = () => {
+    if (looping) {
+      let index = 5;
+      p5.image(images[index], -320, -320);
+      p5.loadPixels();
+      const canvasImg = p5.get();
+      flowField(p5, canvasImg, weight);
+    }
+  };
+}
+
+function flowField(p5, canvasImg, weight) {
+  let rez1 = 0.002; // angle
+  let gap = 15;
+  let len = 10;
+  let startVary = 25;
+  canvasImg.loadPixels();
+  p5.background(0, 20); // Add transparency for trailing effect
+  for (let i = -p5.width / 2 - 20; i < p5.width / 2 + 20; i += gap) {
+    for (let j = -p5.height / 2 - 20; j < p5.height / 2 + 20; j += gap) {
+      let x = i + p5.random(-startVary, startVary);
+      let y = j + p5.random(-startVary, startVary);
+
+      let c = canvasImg.get(x + p5.width / 2, y + p5.height / 2);
+      p5.stroke(c);
+      for (let k = 10; k > 0; k--) {
+        p5.strokeWeight(weight);
+        let n1 =
+          (p5.noise(
+            x * rez1 + p5.frameCount * rez1,
+            y * rez1 + p5.frameCount * rez1
+          ) -
+            0.2) *
+          1.7;
+        let ang = n1 * p5.PI * 2;
+        let newX = p5.cos(ang) * len + x;
+        let newY = p5.sin(ang) * len + y;
+        p5.line(x, y, newX, newY);
+        x = newX;
+        y = newY;
+      }
+    }
+  }
+}
+
+export default function Sketch(props) {
+  const { images } = props;
+  return <ReactP5Wrapper sketch={sketch} imageArray={images} weight={1.4} />;
+}
