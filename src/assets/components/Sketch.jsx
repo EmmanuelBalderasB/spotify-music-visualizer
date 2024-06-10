@@ -4,13 +4,14 @@ function sketch(p5) {
   // let imageArr = [];
   let imgPaths;
   let images = [];
+  let looping = true;
   p5.setup = () => {
     let cnv = p5.createCanvas(1920 / 3, 1920 / 3, p5.WEBGL);
     /* const font = p5.loadFont("../fonts/Satoshi-Regular.otf");
     p5.textFont(font); */
     p5.background(0);
     p5.frameRate(30);
-    let looping = true;
+
     cnv.mousePressed(() => {
       if (looping) {
         looping = false;
@@ -63,8 +64,12 @@ function sketch(p5) {
     //p5.image(img, -320, -320);
 
     //p5.ellipse(0, 0, 20, 20);
+    if (!looping) {
+    }
   };
 }
+
+function flowField(p5) {}
 
 export default function Sketch(props) {
   const { images } = props;
