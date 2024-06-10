@@ -1,4 +1,4 @@
-import { ReactP5Wrapper } from "@p5-wrapper/react";
+/* import { ReactP5Wrapper } from "@p5-wrapper/react";
 
 function sketch(p5) {
   // let imageArr = [];
@@ -8,8 +8,7 @@ function sketch(p5) {
   let weight = 1;
   p5.setup = () => {
     let cnv = p5.createCanvas(640, 640, p5.WEBGL);
-    /* const font = p5.loadFont("../fonts/Satoshi-Regular.otf");
-    p5.textFont(font); */
+
     p5.background(0);
     p5.frameRate(160);
 
@@ -111,3 +110,4 @@ export default function Sketch(props) {
   const { images } = props;
   return <ReactP5Wrapper sketch={sketch} imageArray={images} weight={1.4} />;
 }
+ */
