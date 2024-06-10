@@ -31,7 +31,7 @@ export default function LoadingScreen(props) {
         url: props.result.items[count].track.album.images[0].url,
       }); */
       //setCurrentTrack(props.result.items[count].track);
-    }, 1000);
+    }, 10);
     return () => clearInterval(interval);
   }, [animationCycle]);
   return (
