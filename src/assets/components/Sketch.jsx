@@ -117,7 +117,7 @@ const sketch = (p5) => {
         let b = img.pixels[index + 2];
         let a = img.pixels[index + 3];
         //let a = 10;
-
+        p5.strokeWeight(weight);
         p5.ellipse(this.pos.x, this.pos.y, 3, 3);
         p5.fill(r, g, b, a);
       }
