@@ -12,7 +12,7 @@ const sketch = (p5) => {
   let flowField;
   let particles = [];
   let canvasImg;
-
+  let index;
   p5.setup = () => {
     let cnv = p5.createCanvas(640, 640);
     //p5.background(255);
@@ -41,11 +41,23 @@ const sketch = (p5) => {
         images.push(p5.loadImage(imgPaths[i].url));
       }
     }
+    if (props.index) {
+      index = props.index;
+      p5.clear();
+      flowField = [];
+      particles = [];
+      flowField = new Array(cols)
+        .fill()
+        .map(() => new Array(rows).fill().map(() => p5.createVector(0, 0)));
+
+      for (let i = 0; i < 1500; i++) {
+        particles.push(new Particle());
+      }
+    }
     weight = props.weight;
   };
 
   p5.draw = () => {
-    let index = images.length - 1;
     if (images.length > index) {
       canvasImg = images[index];
     }
@@ -134,5 +146,13 @@ const sketch = (p5) => {
 
 export default function Sketch(props) {
   const { images } = props;
-  return <ReactP5Wrapper sketch={sketch} imageArray={images} weight={1.4} />;
+  const { index } = props;
+  return (
+    <ReactP5Wrapper
+      sketch={sketch}
+      imageArray={images}
+      weight={1.4}
+      index={index}
+    />
+  );
 }
