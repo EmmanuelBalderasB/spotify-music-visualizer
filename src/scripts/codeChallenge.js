@@ -11,7 +11,8 @@ export default async function codeChallenge(codeArg) {
     params.append("response_type", "code");
     params.append(
       "redirect_uri",
-      "https://spotify-music-visualizer.vercel.app"
+      "https://spotify-music-visualizer.vercel.app" //PRODUCTION REDIRECT URI
+      //"http://localhost:5173/callback" //LOCAL REDIRECT URI
     ); //REDURECT URI
     params.append(
       "scope",
@@ -32,7 +33,8 @@ export default async function codeChallenge(codeArg) {
     params.append("code", code);
     params.append(
       "redirect_uri",
-      "https://spotify-music-visualizer.vercel.app"
+      "https://spotify-music-visualizer.vercel.app" //PRODUCTION REDIRECT URI
+      //"http://localhost:5173/callback" //LOCAL REDIRECT URI
     ); //REDIRECT URI
     params.append("code_verifier", verifier);
 
