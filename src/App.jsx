@@ -71,7 +71,7 @@ function App() {
     >
       <Navbar handler={setCurrentSection} />
       {currentSection === "home" ? (
-        <h1 className=" text-yellow-100 text-5xl capitalize animate-fade-in text-center mt-24 mb-0 w-screen">
+        <h1 className=" text-yellow-100 text-5xl capitalize animate-fade-in text-center absolute mt-36 w-screen">
           Flow Field Album Art
         </h1>
       ) : null}
