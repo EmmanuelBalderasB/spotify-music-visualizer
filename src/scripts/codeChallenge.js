@@ -9,7 +9,10 @@ export default async function codeChallenge(codeArg) {
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("response_type", "code");
-    params.append("redirect_uri", "http://localhost:5173/callback"); //REDURECT URI
+    params.append(
+      "redirect_uri",
+      "https://spotify-music-visualizer.vercel.app/callback"
+    ); //REDURECT URI
     params.append(
       "scope",
       "user-read-private user-read-email user-library-read playlist-read-private playlist-read-collaborative"
@@ -27,7 +30,10 @@ export default async function codeChallenge(codeArg) {
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append("redirect_uri", "http://localhost:5173/callback"); //REDIRECT URI
+    params.append(
+      "redirect_uri",
+      "https://spotify-music-visualizer.vercel.app/callback"
+    ); //REDIRECT URI
     params.append("code_verifier", verifier);
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
