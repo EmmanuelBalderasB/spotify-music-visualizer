@@ -42,16 +42,18 @@ export default function LoadingScreen(props) {
           Loading...
         </h2>
       </div>
-      <Track
-        alt={props.result ? props.result.items[count].track.name : null}
-        image={
-          props.result
-            ? props.result.items[count].track.album.images[0].url
-            : null
-        }
-        styling="h-40 w-40 rounded-3xl border-2 border-yellow-200 absolute bottom-12 left-1/4 animate-swipe"
-      />
-      <TrackInfo index={count} result={props.result} />
+      <div className="flex flex-row justify-center">
+        <Track
+          alt={props.result ? props.result.items[count].track.name : null}
+          image={
+            props.result
+              ? props.result.items[count].track.album.images[0].url
+              : null
+          }
+          styling="h-40 w-40 xl:mr-12 lg:mr-12 md:mr-10 sm:mr-8 mr-5 rounded-3xl border-2 border-yellow-200 animate-swipe"
+        />
+        <TrackInfo index={count} result={props.result} />
+      </div>
     </>
   );
 }

@@ -22,7 +22,7 @@ export default function Track(props) {
   }, []);
 
   return (
-    <div className="flex flex-row justify-center items-center">
+    <div className="">
       <img
         ref={elementRef}
         src={props.image}
