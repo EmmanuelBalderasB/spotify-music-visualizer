@@ -13,22 +13,29 @@ const sketch = (p5) => {
   let particles = [];
   let canvasImg;
   let index;
+
   p5.setup = () => {
-    let cnv = p5.createCanvas(640, 640);
-    //p5.background(255);
+    let cnv = p5.createCanvas(w, h);
+    p5.frameRate(60);
+
     cols = Math.floor(w / scl);
     rows = Math.floor(h / scl);
     flowField = new Array(cols)
       .fill()
       .map(() => new Array(rows).fill().map(() => p5.createVector(0, 0)));
 
-    for (let i = 0; i < 1500; i++) {
+    for (let i = 0; i < 1500 * 8; i++) {
       particles.push(new Particle());
     }
 
     cnv.mousePressed(() => {
       looping = !looping;
-      looping ? p5.loop() : p5.noLoop();
+      if (looping) {
+        p5.loop();
+      } else {
+        p5.noLoop();
+        p5.save("flowfield.png");
+      }
     });
   };
 
@@ -41,15 +48,13 @@ const sketch = (p5) => {
         images.push(p5.loadImage(imgPaths[i].url));
       }
     }
-    if (props.index) {
+    if (props.index !== undefined) {
       index = props.index;
       p5.clear();
-      flowField = [];
-      particles = [];
       flowField = new Array(cols)
         .fill()
         .map(() => new Array(rows).fill().map(() => p5.createVector(0, 0)));
-
+      particles = [];
       for (let i = 0; i < 1500; i++) {
         particles.push(new Particle());
       }
@@ -123,12 +128,10 @@ const sketch = (p5) => {
         let d = p5.pixelDensity();
         let index =
           4 * ((Math.floor(this.pos.y) * w + Math.floor(this.pos.x)) * d);
-        //let index = Math.floor(this.pos.y) * w + Math.floor(this.pos.x);
         let r = img.pixels[index];
         let g = img.pixels[index + 1];
         let b = img.pixels[index + 2];
         let a = img.pixels[index + 3];
-        //let a = 10;
         p5.strokeWeight(weight);
         p5.ellipse(this.pos.x, this.pos.y, 3, 3);
         p5.fill(r, g, b, a);
@@ -145,8 +148,7 @@ const sketch = (p5) => {
 };
 
 export default function Sketch(props) {
-  const { images } = props;
-  const { index } = props;
+  const { images, index } = props;
   return (
     <ReactP5Wrapper
       sketch={sketch}
